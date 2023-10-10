@@ -1,8 +1,3 @@
-#include<bits/stdc++.h>
-
-using namespace std;
-
-typedef long long LL;
 struct Substring_auto{
     string s;
     int n;
@@ -35,21 +30,3 @@ struct Substring_auto{
         return true; 
     }
 };
-
-int main (){
-    ios::sync_with_stdio(false);
-    std::cin.tie(0);
-    int n, q; cin >> n >> q;
-    string s; cin >> s;
-    auto s_ac = Substring_auto(s);
-    s_ac.build();
-    while(q --)
-    {
-        string t; cin >> t;
-        if(s_ac.is_substring(t))
-            cout << "YES\n";
-        else
-            cout << "NO\n";
-    } 
-    return 0;
-}

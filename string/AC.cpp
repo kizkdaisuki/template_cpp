@@ -1,7 +1,7 @@
 struct node
 {
     int fail;
-    int ch[26];
+    int ch[27];
     int ans;
 };
 struct node NIL = {0};
@@ -11,20 +11,21 @@ struct trie
     vector<int> in;
     map<int, int> ref;
     int siz = 0;
-    void insert(string s,int x)
+    void insert(string& s,int x, char offset = 'a')
     {
         if(!tr.size())
             tr.push_back(NIL);
         int place = 0;
-        for (int i = 0; i < s.length();i++)
+        for (char i : s)
         {
-            if (tr[place].ch[s[i] - 97] == 0)
+            int t = isalpha(i) ? i - offset : 26;
+            if (tr[place].ch[t] == 0)
             {
-                tr[place].ch[s[i] - 97] = ++siz;
+                tr[place].ch[t] = ++siz;
                 tr.push_back(NIL);
                 in.push_back(0);
             }
-            place = tr[place].ch[s[i] - 97];
+            place = tr[place].ch[t];
         }
         ref[x] = place;
     }
@@ -49,12 +50,13 @@ struct trie
                     tr[tp].ch[i] = tr[tr[tp].fail].ch[i];
         }
     }
-    void query(string t)
+    void query(string& t, char offset = 'a')
     {
         int place = 0;
-        for (int i = 0; i < t.length();i++)
+        for (char i : t)
         {
-            place = tr[place].ch[t[i] - 97];
+            int t = isalpha(i) ? i - offset : 26;
+            place = tr[place].ch[t];
             tr[place].ans++;
         }
     }
@@ -75,3 +77,17 @@ struct trie
         }
     }
 };
+
+void test(){
+    int n; cin >> n;
+	string b = "";
+	trie acam;
+	string a;
+	for(int i = 1; i <= n; i ++)
+	    cin >> a, acam.insert(a, i), b += a, b += '#';
+	acam.build();
+	acam.query(b); acam.topo();
+	int res = 0;
+	for(int i = 1; i <= n; i ++)
+	    cout << acam.tr[acam.ref[i]].ans << "\n";
+}
