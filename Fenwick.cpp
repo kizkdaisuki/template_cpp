@@ -13,7 +13,7 @@ struct Fenwick {
     }
      
     void add(int x, T v) {
-        for (int i = x + 1; i <= n; i += i & -i) {
+        for (int i = x; i <= n; i += i & -i) {
             a[i - 1] += v;
         }
     }
@@ -27,7 +27,7 @@ struct Fenwick {
     }
      
     T rangeSum(int l, int r) {
-        return sum(r) - sum(l);
+        return sum(r) - sum(l - 1);
     }
      
     int kth(T k) {
@@ -38,6 +38,6 @@ struct Fenwick {
                 k -= a[x - 1];
             }
         }
-        return x;
+        return x; // index from zero
     }
 };
