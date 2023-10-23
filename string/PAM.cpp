@@ -51,6 +51,7 @@ public:
             if (!t[p].ch[s[i] - 97])
             {
                 int q = newnode(t[p].len + 2);
+                
                 t[q].fail = t[getfail(t[p].fail, i)].ch[s[i] - 97];
                 t[p].ch[s[i] - 97] = q;
             }
